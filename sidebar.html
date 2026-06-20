@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>محلل الروليت</title>
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <div class="header">
+    <span class="title">🎰 محلل الروليت</span>
+    <div class="header-actions">
+      <span id="total-count" class="badge">0 لفة</span>
+      <button id="clear-btn" title="مسح بيانات الجلسة الحالية">🗑️</button>
+    </div>
+  </div>
+
+  <!-- ── Dealer selector ── -->
+  <div class="dealer-bar">
+    <span class="dealer-label">الديلر:</span>
+    <select id="dealer-select">
+      <option value="">— اختر ديلر —</option>
+    </select>
+    <button id="add-dealer-btn" title="إضافة ديلر جديد">＋</button>
+    <button id="del-dealer-btn" title="حذف الديلر المختار">✕</button>
+  </div>
+
+  <!-- ── Add dealer form (hidden by default) ── -->
+  <div id="add-dealer-form" class="add-dealer-form hidden">
+    <input id="dealer-name-input" type="text" placeholder="اسم الديلر" maxlength="30" />
+    <button id="save-dealer-btn">حفظ</button>
+    <button id="cancel-dealer-btn">إلغاء</button>
+  </div>
+
+  <!-- ── Tabs ── -->
+  <div class="tabs">
+    <button class="tab active" data-tab="general">عام</button>
+    <button class="tab" data-tab="dealers">الديلرات</button>
+  </div>
+
+  <!-- ══════════ TAB: GENERAL ══════════ -->
+  <div id="tab-general">
+
+    <!-- Last number -->
+    <div class="last-number-section">
+      <div class="label">آخر رقم</div>
+      <div id="last-number" class="last-number-display">—</div>
+      <div id="current-dealer-name" class="current-dealer-tag hidden"></div>
+    </div>
+
+    <!-- Distribution -->
+    <div class="section">
+      <div class="section-title">توزيع الألوان</div>
+      <div class="color-bars">
+        <div class="bar-row">
+          <span class="dot red"></span>
+          <span class="bar-label">أحمر</span>
+          <div class="bar-track"><div id="bar-red" class="bar-fill red-fill"></div></div>
+          <span id="pct-red" class="pct">0%</span>
+        </div>
+        <div class="bar-row">
+          <span class="dot black"></span>
+          <span class="bar-label">أسود</span>
+          <div class="bar-track"><div id="bar-black" class="bar-fill black-fill"></div></div>
+          <span id="pct-black" class="pct">0%</span>
+        </div>
+        <div class="bar-row">
+          <span class="dot green"></span>
+          <span class="bar-label">أخضر</span>
+          <div class="bar-track"><div id="bar-green" class="bar-fill green-fill"></div></div>
+          <span id="pct-green" class="pct">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Odd / Even -->
+    <div class="section">
+      <div class="section-title">فردي / زوجي</div>
+      <div class="two-col">
+        <div class="stat-box">
+          <div class="stat-val" id="odd-count">0</div>
+          <div class="stat-lbl">فردي</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="even-count">0</div>
+          <div class="stat-lbl">زوجي</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hot numbers -->
+    <div class="section">
+      <div class="section-title">🔥 أرقام ساخنة</div>
+      <div id="hot-numbers" class="number-chips"></div>
+    </div>
+
+    <!-- Cold numbers -->
+    <div class="section">
+      <div class="section-title">❄️ أرقام باردة</div>
+      <div id="cold-numbers" class="number-chips"></div>
+    </div>
+
+    <!-- Overdue -->
+    <div class="section">
+      <div class="section-title">⏳ أرقام متأخرة إحصائياً</div>
+      <div class="overdue-note">لم تظهر لفترة أطول من المتوسط</div>
+      <div id="overdue-numbers" class="number-chips"></div>
+    </div>
+
+    <!-- History -->
+    <div class="section">
+      <div class="section-title">📋 آخر 20 رقم</div>
+      <div id="history-chips" class="number-chips history-row"></div>
+    </div>
+
+    <!-- Manual input -->
+    <div class="manual-section">
+      <div class="section-title">إدخال يدوي</div>
+      <div class="manual-row">
+        <input id="manual-input" type="number" min="0" max="36" placeholder="0–36" />
+        <button id="manual-btn">أضف</button>
+      </div>
+    </div>
+
+  </div><!-- /tab-general -->
+
+  <!-- ══════════ TAB: DEALERS ══════════ -->
+  <div id="tab-dealers" class="hidden">
+    <div id="dealers-list" class="dealers-list">
+      <div class="empty-msg">لا يوجد ديلرات محفوظون بعد.<br/>اضغط ＋ لإضافة ديلر.</div>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

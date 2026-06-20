@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Roulette Analyzer",
+  "version": "1.0",
+  "description": "محلل إحصائي للروليت - Stake & bet365",
+  "permissions": ["storage", "scripting", "sidePanel"],
+  "host_permissions": [
+    "https://stake.com/*",
+    "https://*.stake.com/*",
+    "https://bet365.com/*",
+    "https://*.bet365.com/*"
+  ],
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://stake.com/*",
+        "https://*.stake.com/*",
+        "https://bet365.com/*",
+        "https://*.bet365.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "محلل الروليت",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
