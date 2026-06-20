@@ -14,11 +14,16 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;overscroll-behavior:none;overflow:hidden}
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+/* Alert banner */
+#alert-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#7c1d1d;color:#fca5a5;padding:7px 16px;text-align:center;font-size:12px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.6);animation:pulseRed 1.2s ease-in-out infinite alternate}
+@keyframes pulseRed{from{background:#7c1d1d}to{background:#991b1b}}
+/* Header */
 .hdr{display:flex;align-items:center;justify-content:space-between;background:#161923;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));border-bottom:1px solid #2d3748;flex-shrink:0}
 .hdr-title{font-size:16px;font-weight:700}
 .hdr-right{display:flex;align-items:center;gap:10px}
 #total-badge{background:#2d3748;border-radius:12px;padding:3px 10px;font-size:12px;color:#a0aec0}
 #clear-btn{background:none;border:none;font-size:18px;opacity:.6;cursor:pointer;min-width:44px;min-height:44px}
+/* Dealer bar */
 .dealer-bar{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#111318;border-bottom:1px solid #2d3748;flex-shrink:0}
 .dlr-lbl{font-size:11px;color:#718096;white-space:nowrap}
 #dealer-select{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:6px 8px;font-size:16px;outline:none}
@@ -30,10 +35,12 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
 #dlr-name-inp{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:10px;font-size:16px;outline:none}
 #save-dlr-btn{background:#2b6cb0;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointer;min-height:44px}
 #cancel-dlr-btn{background:#2d3748;color:#a0aec0;border:none;border-radius:8px;padding:10px;font-size:14px;cursor:pointer;min-height:44px}
+/* Tabs */
 .tabs{display:flex;border-bottom:1px solid #2d3748;flex-shrink:0}
-.tab{flex:1;padding:12px;background:none;border:none;color:#718096;font-size:14px;cursor:pointer;border-bottom:2px solid transparent;min-height:44px}
+.tab{flex:1;padding:10px 2px;background:none;border:none;color:#718096;font-size:11px;cursor:pointer;border-bottom:2px solid transparent;min-height:44px}
 .tab.active{color:#63b3ed;border-bottom-color:#63b3ed}
 .tab-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+/* Stats tab */
 .last-box{text-align:center;padding:16px 0 12px;border-bottom:1px solid #2d3748}
 .last-lbl{font-size:11px;color:#718096;margin-bottom:4px}
 #last-num{font-size:56px;font-weight:900;line-height:1;min-height:62px}
@@ -64,6 +71,11 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
 .chip.cold{opacity:.45}
 .hist-row{flex-direction:row-reverse}
 .overdue-note{font-size:11px;color:#4a5568;margin-bottom:7px}
+/* Alert settings row */
+.alert-row{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#0d1117;border-bottom:1px solid #1a202c}
+.alert-row span{font-size:12px;color:#718096}
+#alert-threshold-inp{width:60px;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:6px;font-size:16px;text-align:center;outline:none}
+/* Numpad */
 .numpad-section{padding:12px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .numpad-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .numpad{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
@@ -73,6 +85,7 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
 .nkey.black-key{background:#1a202c;color:#a0aec0;border-color:#4a5568}
 .nkey.green-key{background:#1c3a2b;color:#38a169;border-color:#38a169}
 .zero-key{grid-column:3/span 2;border-radius:22px;aspect-ratio:unset;height:44px}
+/* Dealers tab */
 .dlr-list{padding:12px 16px;display:flex;flex-direction:column;gap:14px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .empty-msg{color:#4a5568;font-size:13px;text-align:center;padding:30px 0}
 .dlr-card{background:#161923;border-radius:12px;border:1px solid #2d3748;padding:12px 14px}
@@ -89,7 +102,61 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
 .clr-pill .pv{font-size:16px;font-weight:700}
 .clr-pill.rp .pv{color:#fc4949}.clr-pill.bp .pv{color:#a0aec0}.clr-pill.gp .pv{color:#38a169}
 .clr-pill .pl{font-size:10px;color:#718096}
-/* ── Setup tab ── */
+/* Sectors tab */
+.sectors-page{padding:12px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px}
+.sz-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.sz-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.sz-lbl{width:80px;font-size:12px;color:#a0aec0;flex-shrink:0}
+.sz-track{flex:1;height:10px;background:#2d3748;border-radius:5px;overflow:hidden}
+.sz-fill{height:100%;border-radius:5px;width:0;transition:width .4s}
+.low-fill{background:#63b3ed}.high-fill{background:#f6ad55}
+.sz-pct{font-size:11px;color:#a0aec0;width:32px;text-align:left}
+.sz-cnt{font-size:11px;color:#4a5568;width:22px}
+.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sz-box{background:#161923;border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #2d3748}
+.sz-box-val{font-size:22px;font-weight:700;color:#63b3ed}
+.sz-box-pct{font-size:11px;color:#f6ad55;margin-top:2px}
+.sz-box-lbl{font-size:10px;color:#718096;margin-top:3px}
+/* Bar chart */
+.chart-section{background:#111318;border-radius:10px;padding:10px 8px}
+.chart-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.chart-bars{display:flex;gap:2px;align-items:flex-end;height:100px;min-width:max-content}
+.chart-col{display:flex;flex-direction:column;align-items:center;gap:2px;width:18px}
+.chart-bar{width:14px;border-radius:2px 2px 0 0;min-height:2px}
+.chart-bar.red{background:#fc4949}.chart-bar.black{background:#718096}.chart-bar.green{background:#38a169}
+.chart-num{font-size:7px;color:#4a5568;margin-top:1px}
+.chart-cnt{font-size:7px;color:#718096;min-height:9px}
+/* Sessions tab */
+.sess-page{padding:12px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.sess-save-row{display:flex;gap:8px;align-items:center}
+#sess-name-inp{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:10px;font-size:16px;outline:none}
+#sess-save-btn{background:#276749;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;min-height:44px;white-space:nowrap}
+.sess-list{display:flex;flex-direction:column;gap:10px}
+.sess-card{background:#161923;border:1px solid #2d3748;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;-webkit-user-select:none}
+.sess-card:active{background:#1a202c}
+.sess-left{flex:1;min-width:0}
+.sess-name{font-weight:700;font-size:14px;color:#e2e8f0;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sess-meta{font-size:12px;color:#718096}
+.sess-right{display:flex;gap:8px;align-items:center;flex-shrink:0;margin-right:8px}
+.sess-spins{background:#2d3748;border-radius:10px;padding:3px 8px;font-size:12px;color:#a0aec0}
+.sess-del{background:none;border:none;font-size:17px;color:#4a5568;cursor:pointer;min-width:36px;min-height:36px;padding:4px;display:flex;align-items:center;justify-content:center}
+.sess-del:active{color:#fc8181}
+/* Session modal */
+#sess-modal{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.8);display:none;align-items:flex-end}
+.modal-box{background:#161923;border-radius:20px 20px 0 0;width:100%;max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:env(safe-area-inset-bottom)}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 12px;border-bottom:1px solid #2d3748;position:sticky;top:0;background:#161923;z-index:1}
+.modal-title{font-size:15px;font-weight:700;color:#f6ad55}
+#modal-close{background:none;border:none;font-size:22px;color:#718096;cursor:pointer;min-width:44px;min-height:44px}
+.modal-body{padding:16px 20px}
+.modal-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.modal-stat-box{background:#0d0f14;border-radius:10px;padding:10px;text-align:center}
+.modal-stat-val{font-size:20px;font-weight:700}
+.modal-stat-val.r{color:#fc4949}.modal-stat-val.b{color:#a0aec0}.modal-stat-val.g{color:#38a169}
+.modal-stat-lbl{font-size:10px;color:#718096;margin-top:2px}
+.modal-sub-lbl{font-size:11px;color:#718096;margin-bottom:8px;margin-top:12px}
+.modal-hist{display:flex;flex-wrap:wrap;gap:4px;flex-direction:row-reverse}
+.modal-hist .chip{width:30px;height:30px;font-size:11px}
+/* Setup tab */
 .setup-page{padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .setup-hero{text-align:center;padding:20px 0 24px;border-bottom:1px solid #2d3748;margin-bottom:20px}
 .setup-icon{font-size:40px;margin-bottom:8px}
@@ -108,6 +175,7 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
 </style>
 </head>
 <body>
+<div id="alert-banner"></div>
 <div id="app">
   <div class="hdr">
     <span class="hdr-title">🎰 محلل الروليت</span>
@@ -128,9 +196,13 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
   </div>
   <div class="tabs">
     <button class="tab active" data-tab="main">إحصائيات</button>
+    <button class="tab" data-tab="sectors">أقسام</button>
     <button class="tab" data-tab="dealers">الديلرات</button>
+    <button class="tab" data-tab="sessions">جلساتي</button>
     <button class="tab" data-tab="setup">⚡ لايف</button>
   </div>
+
+  <!-- TAB: STATS -->
   <div id="tab-main" class="tab-content">
     <div class="last-box">
       <div class="last-lbl">آخر رقم</div>
@@ -160,25 +232,85 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
       <div id="overdue" class="chips"></div>
     </div>
     <div class="sec"><div class="sec-title">📋 آخر 20 رقم</div><div id="hist" class="chips hist-row"></div></div>
+    <div class="alert-row">
+      <span>⏰ تنبيه إذا غاب رقم أكثر من</span>
+      <input id="alert-threshold-inp" type="number" min="1" max="500" inputmode="numeric" value="50"/>
+      <span>لفة</span>
+    </div>
     <div class="numpad-section">
       <div class="numpad-title">اضغط الرقم لتسجيله</div>
       <div class="numpad" id="numpad"></div>
     </div>
   </div>
+
+  <!-- TAB: SECTORS -->
+  <div id="tab-sectors" class="tab-content" style="display:none">
+    <div class="sectors-page">
+      <div>
+        <div class="sz-title">منخفض / مرتفع</div>
+        <div class="sz-bar-row">
+          <span class="sz-lbl">منخفض (1-18)</span>
+          <div class="sz-track"><div id="sz-low" class="sz-fill low-fill"></div></div>
+          <span id="sz-low-pct" class="sz-pct">0%</span>
+          <span id="sz-low-cnt" class="sz-cnt">0</span>
+        </div>
+        <div class="sz-bar-row">
+          <span class="sz-lbl">مرتفع (19-36)</span>
+          <div class="sz-track"><div id="sz-high" class="sz-fill high-fill"></div></div>
+          <span id="sz-high-pct" class="sz-pct">0%</span>
+          <span id="sz-high-cnt" class="sz-cnt">0</span>
+        </div>
+      </div>
+      <div>
+        <div class="sz-title">الدزينات</div>
+        <div class="three-grid">
+          <div class="sz-box"><div class="sz-box-val" id="d1-val">0</div><div class="sz-box-pct" id="d1-pct">—</div><div class="sz-box-lbl">دزينة 1 (1-12)</div></div>
+          <div class="sz-box"><div class="sz-box-val" id="d2-val">0</div><div class="sz-box-pct" id="d2-pct">—</div><div class="sz-box-lbl">دزينة 2 (13-24)</div></div>
+          <div class="sz-box"><div class="sz-box-val" id="d3-val">0</div><div class="sz-box-pct" id="d3-pct">—</div><div class="sz-box-lbl">دزينة 3 (25-36)</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sz-title">الأعمدة</div>
+        <div class="three-grid">
+          <div class="sz-box"><div class="sz-box-val" id="c1-val">0</div><div class="sz-box-pct" id="c1-pct">—</div><div class="sz-box-lbl">عمود 1</div></div>
+          <div class="sz-box"><div class="sz-box-val" id="c2-val">0</div><div class="sz-box-pct" id="c2-pct">—</div><div class="sz-box-lbl">عمود 2</div></div>
+          <div class="sz-box"><div class="sz-box-val" id="c3-val">0</div><div class="sz-box-pct" id="c3-pct">—</div><div class="sz-box-lbl">عمود 3</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sz-title">📊 الرسم البياني (0–36)</div>
+        <div class="chart-section">
+          <div class="chart-scroll"><div class="chart-bars" id="chart-bars"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: DEALERS -->
   <div id="tab-dealers" class="tab-content" style="display:none">
     <div class="dlr-list" id="dlr-list"></div>
   </div>
 
-  <!-- ── Tab: Setup (Live Bookmarklet) ── -->
+  <!-- TAB: SESSIONS -->
+  <div id="tab-sessions" class="tab-content" style="display:none">
+    <div class="sess-page">
+      <div class="sess-save-row">
+        <input id="sess-name-inp" type="text" inputmode="text" autocomplete="off"
+               autocorrect="off" spellcheck="false" placeholder="اسم الجلسة" maxlength="30"/>
+        <button id="sess-save-btn">💾 حفظ الجلسة</button>
+      </div>
+      <div class="sess-list" id="sess-list"></div>
+    </div>
+  </div>
+
+  <!-- TAB: SETUP -->
   <div id="tab-setup" class="tab-content" style="display:none">
     <div class="setup-page">
-
       <div class="setup-hero">
         <div class="setup-icon">⚡</div>
         <div class="setup-title">تحليل لايف تلقائي</div>
         <div class="setup-sub">يقرأ الأرقام من موقع الروليت بدون أي إدخال يدوي</div>
       </div>
-
       <div class="setup-step">
         <div class="step-num">1</div>
         <div class="step-body">
@@ -188,7 +320,6 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
           <div id="copy-ok" class="copy-ok" style="display:none">✅ تم النسخ!</div>
         </div>
       </div>
-
       <div class="setup-step">
         <div class="step-num">2</div>
         <div class="step-body">
@@ -203,7 +334,6 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
           </div>
         </div>
       </div>
-
       <div class="setup-step">
         <div class="step-num">3</div>
         <div class="step-body">
@@ -217,7 +347,6 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
           </div>
         </div>
       </div>
-
       <div class="setup-step">
         <div class="step-num">4</div>
         <div class="step-body">
@@ -230,21 +359,48 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system
           </div>
         </div>
       </div>
-
-      <div class="setup-note">
-        اللوحة تقرأ الأرقام تلقائياً وتحدّث الإحصائيات مع كل لفة
-      </div>
-
+      <div class="setup-note">اللوحة تقرأ الأرقام تلقائياً وتحدّث الإحصائيات مع كل لفة</div>
     </div>
   </div>
-
 </div>
+
+<!-- Session Detail Modal -->
+<div id="sess-modal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title-text"></span>
+      <button id="modal-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <script>
 const RED=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
 function color(n){return n===0?"green":RED.has(n)?"red":"black";}
-let nums=[],dealers=[],curDealer="";
-function load(){try{nums=JSON.parse(localStorage.getItem("ra_nums")||"[]");dealers=JSON.parse(localStorage.getItem("ra_dealers")||"[]");curDealer=localStorage.getItem("ra_dealer")||"";}catch(e){nums=[];dealers=[];curDealer="";}}
-function save(){localStorage.setItem("ra_nums",JSON.stringify(nums));localStorage.setItem("ra_dealers",JSON.stringify(dealers));localStorage.setItem("ra_dealer",curDealer);}
+
+let nums=[],dealers=[],curDealer="",sessions=[],alertThreshold=50;
+let lastAlertKey=null;
+
+function load(){
+  try{
+    nums=JSON.parse(localStorage.getItem("ra_nums")||"[]");
+    dealers=JSON.parse(localStorage.getItem("ra_dealers")||"[]");
+    curDealer=localStorage.getItem("ra_dealer")||"";
+    sessions=JSON.parse(localStorage.getItem("ra_sessions")||"[]");
+    const t=parseInt(localStorage.getItem("ra_alert_threshold"));
+    if(!isNaN(t)&&t>0)alertThreshold=t;
+  }catch(e){nums=[];dealers=[];curDealer="";sessions=[];alertThreshold=50;}
+}
+
+function save(){
+  localStorage.setItem("ra_nums",JSON.stringify(nums));
+  localStorage.setItem("ra_dealers",JSON.stringify(dealers));
+  localStorage.setItem("ra_dealer",curDealer);
+}
+function saveSessions(){localStorage.setItem("ra_sessions",JSON.stringify(sessions));}
+function saveAlertThreshold(){localStorage.setItem("ra_alert_threshold",String(alertThreshold));}
+
 function stats(arr){
   const freq={};for(let i=0;i<=36;i++)freq[i]=0;
   let r=0,b=0,g=0,odd=0,even=0;
@@ -255,33 +411,138 @@ function stats(arr){
   for(let i=0;i<=36;i++){const last=lastSeen[i]!==undefined?lastSeen[i]:-1;const gap=total-1-last;if(gap>=37)overdue.push({n:i,gap});}
   overdue.sort((a,b)=>b.gap-a.gap);
   const sorted=Object.entries(freq).map(([n,c])=>({n:parseInt(n),count:c})).sort((a,b)=>b.count-a.count);
-  return{r,b,g,odd,even,total,sorted,overdue};
+  return{r,b,g,odd,even,total,sorted,overdue,lastSeen};
 }
-function chip(n,cls=""){const d=document.createElement("div");d.className=`chip ${color(n)} ${cls}`.trim();d.textContent=n;return d;}
+
+function chip(n,cls=""){
+  const d=document.createElement("div");
+  d.className=`chip ${color(n)} ${cls}`.trim();
+  d.textContent=n;
+  return d;
+}
+
+/* ── Alert ── */
+function checkAlert(){
+  const banner=document.getElementById("alert-banner");
+  const t=nums.length;
+  if(!t||alertThreshold<1){banner.style.display="none";return;}
+
+  const lastSeen={};
+  nums.forEach(({n},i)=>{lastSeen[n]=i;});
+  let maxGap=-1,maxNum=-1;
+  for(let i=0;i<=36;i++){
+    const last=lastSeen[i]!==undefined?lastSeen[i]:-1;
+    const gap=t-1-last;
+    if(gap>=alertThreshold&&gap>maxGap){maxGap=gap;maxNum=i;}
+  }
+
+  if(maxNum<0){banner.style.display="none";lastAlertKey=null;return;}
+
+  banner.textContent=`⚠️ الرقم ${maxNum} غائب ${maxGap} لفة — تجاوز الحد (${alertThreshold})`;
+  banner.style.display="block";
+
+  const key=`${maxNum}:${maxGap}`;
+  if(key!==lastAlertKey){
+    lastAlertKey=key;
+    if(navigator.vibrate)navigator.vibrate([100,50,100]);
+  }
+}
+
+/* ── Stats tab ── */
 function renderMain(){
   const s=stats(nums);
   document.getElementById("total-badge").textContent=`${s.total} لفة`;
   const ln=document.getElementById("last-num"),lt=document.getElementById("last-dlr-tag");
-  if(nums.length){const last=nums[nums.length-1];ln.textContent=last.n;ln.className=color(last.n);lt.textContent=last.dealer?`الديلر: ${last.dealer}`:"";
+  if(nums.length){
+    const last=nums[nums.length-1];
+    ln.textContent=last.n;ln.className=color(last.n);
+    lt.textContent=last.dealer?`الديلر: ${last.dealer}`:"";
   }else{ln.textContent="—";ln.className="";lt.textContent="";}
+
   const t=s.total,pr=t?Math.round(s.r/t*100):0,pb=t?Math.round(s.b/t*100):0,pg=t?Math.round(s.g/t*100):0;
-  document.getElementById("br").style.width=pr+"%";document.getElementById("bb").style.width=pb+"%";document.getElementById("bg").style.width=pg+"%";
-  document.getElementById("pr").textContent=pr+"%";document.getElementById("pb").textContent=pb+"%";document.getElementById("pg").textContent=pg+"%";
-  document.getElementById("odd").textContent=s.odd;document.getElementById("even").textContent=s.even;
+  document.getElementById("br").style.width=pr+"%";
+  document.getElementById("bb").style.width=pb+"%";
+  document.getElementById("bg").style.width=pg+"%";
+  document.getElementById("pr").textContent=pr+"%";
+  document.getElementById("pb").textContent=pb+"%";
+  document.getElementById("pg").textContent=pg+"%";
+  document.getElementById("odd").textContent=s.odd;
+  document.getElementById("even").textContent=s.even;
+
   const hotEl=document.getElementById("hot");hotEl.innerHTML="";
-  s.sorted.filter(x=>x.count>0).slice(0,8).forEach((x,i)=>{const c=chip(x.n,i===0?"hot1":i<=2?"hot2":"");c.title=`${x.count} مرة`;hotEl.appendChild(c);});
+  s.sorted.filter(x=>x.count>0).slice(0,8).forEach((x,i)=>{
+    const c=chip(x.n,i===0?"hot1":i<=2?"hot2":"");c.title=`${x.count} مرة`;hotEl.appendChild(c);
+  });
   const coldEl=document.getElementById("cold");coldEl.innerHTML="";
-  s.sorted.filter(x=>x.count>0).slice().reverse().slice(0,8).forEach(x=>{const c=chip(x.n,"cold");c.title=`${x.count} مرة`;coldEl.appendChild(c);});
+  s.sorted.filter(x=>x.count>0).slice().reverse().slice(0,8).forEach(x=>{
+    const c=chip(x.n,"cold");c.title=`${x.count} مرة`;coldEl.appendChild(c);
+  });
   const odEl=document.getElementById("overdue");odEl.innerHTML="";
   s.overdue.slice(0,10).forEach(x=>{const c=chip(x.n);c.title=`غائب ${x.gap} لفة`;odEl.appendChild(c);});
   const histEl=document.getElementById("hist");histEl.innerHTML="";
   nums.slice(-20).forEach(({n})=>histEl.appendChild(chip(n)));
 }
+
+/* ── Sectors tab ── */
+function renderSectors(){
+  const low=nums.filter(x=>x.n>=1&&x.n<=18).length;
+  const high=nums.filter(x=>x.n>=19&&x.n<=36).length;
+  const lhT=low+high||1;
+  document.getElementById("sz-low").style.width=(low/lhT*100)+"%";
+  document.getElementById("sz-high").style.width=(high/lhT*100)+"%";
+  document.getElementById("sz-low-pct").textContent=Math.round(low/lhT*100)+"%";
+  document.getElementById("sz-high-pct").textContent=Math.round(high/lhT*100)+"%";
+  document.getElementById("sz-low-cnt").textContent=low;
+  document.getElementById("sz-high-cnt").textContent=high;
+
+  const d1=nums.filter(x=>x.n>=1&&x.n<=12).length;
+  const d2=nums.filter(x=>x.n>=13&&x.n<=24).length;
+  const d3=nums.filter(x=>x.n>=25&&x.n<=36).length;
+  const dT=d1+d2+d3||1;
+  document.getElementById("d1-val").textContent=d1;
+  document.getElementById("d2-val").textContent=d2;
+  document.getElementById("d3-val").textContent=d3;
+  document.getElementById("d1-pct").textContent=dT>0?Math.round(d1/dT*100)+"%":"—";
+  document.getElementById("d2-pct").textContent=dT>0?Math.round(d2/dT*100)+"%":"—";
+  document.getElementById("d3-pct").textContent=dT>0?Math.round(d3/dT*100)+"%":"—";
+
+  const c1=nums.filter(x=>x.n>0&&x.n%3===1).length;
+  const c2=nums.filter(x=>x.n>0&&x.n%3===2).length;
+  const c3=nums.filter(x=>x.n>0&&x.n%3===0).length;
+  const cT=c1+c2+c3||1;
+  document.getElementById("c1-val").textContent=c1;
+  document.getElementById("c2-val").textContent=c2;
+  document.getElementById("c3-val").textContent=c3;
+  document.getElementById("c1-pct").textContent=cT>0?Math.round(c1/cT*100)+"%":"—";
+  document.getElementById("c2-pct").textContent=cT>0?Math.round(c2/cT*100)+"%":"—";
+  document.getElementById("c3-pct").textContent=cT>0?Math.round(c3/cT*100)+"%":"—";
+
+  renderChart();
+}
+
+function renderChart(){
+  const s=stats(nums);
+  const maxCount=Math.max(...s.sorted.map(x=>x.count),1);
+  const MAX_H=70;
+  const el=document.getElementById("chart-bars");el.innerHTML="";
+  [...s.sorted].sort((a,b)=>a.n-b.n).forEach(({n,count})=>{
+    const col=document.createElement("div");col.className="chart-col";
+    const cnt=document.createElement("div");cnt.className="chart-cnt";cnt.textContent=count||"";
+    const bar=document.createElement("div");bar.className=`chart-bar ${color(n)}`;
+    bar.style.height=Math.max(2,Math.round(count/maxCount*MAX_H))+"px";
+    const lbl=document.createElement("div");lbl.className="chart-num";lbl.textContent=n;
+    col.appendChild(cnt);col.appendChild(bar);col.appendChild(lbl);
+    el.appendChild(col);
+  });
+}
+
+/* ── Dealers tab ── */
 function renderDealers(){
   const el=document.getElementById("dlr-list");el.innerHTML="";
   if(!dealers.length){el.innerHTML='<div class="empty-msg">لا يوجد ديلرات.<br/>اضغط ＋ لإضافة ديلر.</div>';return;}
   dealers.forEach(name=>{
-    const dn=nums.filter(x=>x.dealer===name),card=document.createElement("div");card.className="dlr-card";
+    const dn=nums.filter(x=>x.dealer===name);
+    const card=document.createElement("div");card.className="dlr-card";
     const hdr=document.createElement("div");hdr.className="dlr-card-hdr";
     const nm=document.createElement("span");nm.className="dlr-name";nm.textContent="👤 "+name;
     if(!dn.length){
@@ -298,66 +559,229 @@ function renderDealers(){
     const cr=document.createElement("div");cr.className="clr-row";
     cr.innerHTML=`<div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div><div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div><div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>`;
     card.appendChild(cr);el.appendChild(card);
-    top5.forEach((x,i)=>{const w=document.createElement("div");w.className="fav-wrap";const c=chip(x.n);c.title=`${x.count} مرة`;const rk=document.createElement("div");rk.className="fav-rank";rk.textContent=i+1;w.appendChild(c);w.appendChild(rk);fc.appendChild(w);});
+    top5.forEach((x,i)=>{
+      const w=document.createElement("div");w.className="fav-wrap";
+      const c=chip(x.n);c.title=`${x.count} مرة`;
+      const rk=document.createElement("div");rk.className="fav-rank";rk.textContent=i+1;
+      w.appendChild(c);w.appendChild(rk);fc.appendChild(w);
+    });
   });
 }
+
+/* ── Sessions tab ── */
+function renderSessions(){
+  const el=document.getElementById("sess-list");el.innerHTML="";
+  if(!sessions.length){
+    el.innerHTML='<div class="empty-msg">لا توجد جلسات محفوظة.<br/>سجّل أرقام الجلسة ثم احفظها هنا.</div>';
+    return;
+  }
+  sessions.forEach(sess=>{
+    const card=document.createElement("div");card.className="sess-card";
+    const left=document.createElement("div");left.className="sess-left";
+    const sname=document.createElement("div");sname.className="sess-name";sname.textContent=sess.name;
+    const meta=document.createElement("div");meta.className="sess-meta";meta.textContent=sess.date;
+    left.appendChild(sname);left.appendChild(meta);
+    const right=document.createElement("div");right.className="sess-right";
+    const sp=document.createElement("span");sp.className="sess-spins";sp.textContent=sess.total+" لفة";
+    const del=document.createElement("button");del.className="sess-del";del.textContent="🗑️";del.title="حذف";
+    del.addEventListener("click",e=>{
+      e.stopPropagation();
+      if(confirm(`حذف الجلسة "${sess.name}"؟`)){
+        sessions=sessions.filter(s=>s.id!==sess.id);
+        saveSessions();renderSessions();
+      }
+    });
+    right.appendChild(sp);right.appendChild(del);
+    card.appendChild(left);card.appendChild(right);
+    card.addEventListener("click",()=>openModal(sess));
+    el.appendChild(card);
+  });
+}
+
+function saveCurrentSession(){
+  const inp=document.getElementById("sess-name-inp");
+  const name=inp.value.trim();
+  if(!name){inp.focus();return;}
+  if(!nums.length){alert("لا توجد أرقام لحفظها");return;}
+  const s=stats(nums);
+  sessions.unshift({
+    id:Date.now(),
+    name,
+    date:new Date().toLocaleDateString("ar-SA",{year:"numeric",month:"short",day:"numeric"}),
+    total:nums.length,
+    r:s.r,b:s.b,g:s.g,
+    hot:s.sorted.filter(x=>x.count>0).slice(0,5).map(x=>x.n),
+    nums:[...nums]
+  });
+  inp.value="";inp.blur();
+  saveSessions();renderSessions();
+  if(navigator.vibrate)navigator.vibrate(40);
+}
+
+function openModal(sess){
+  document.getElementById("modal-title-text").textContent=`${sess.name} — ${sess.date}`;
+  const body=document.getElementById("modal-body");body.innerHTML="";
+  const t=sess.total||1;
+  const pr=Math.round(sess.r/t*100),pb=Math.round(sess.b/t*100),pg=Math.round(sess.g/t*100);
+
+  const grid=document.createElement("div");grid.className="modal-stat-grid";
+  grid.innerHTML=`<div class="modal-stat-box"><div class="modal-stat-val r">${pr}%</div><div class="modal-stat-lbl">أحمر</div></div>`+
+    `<div class="modal-stat-box"><div class="modal-stat-val b">${pb}%</div><div class="modal-stat-lbl">أسود</div></div>`+
+    `<div class="modal-stat-box"><div class="modal-stat-val g">${pg}%</div><div class="modal-stat-lbl">أخضر</div></div>`;
+  body.appendChild(grid);
+
+  if(sess.hot&&sess.hot.length){
+    const hl=document.createElement("div");hl.className="modal-sub-lbl";hl.textContent="🔥 الأرقام الساخنة";
+    const hc=document.createElement("div");hc.className="chips";hc.style.marginBottom="4px";
+    sess.hot.forEach((n,i)=>hc.appendChild(chip(n,i===0?"hot1":i<=2?"hot2":"")));
+    body.appendChild(hl);body.appendChild(hc);
+  }
+  if(sess.nums&&sess.nums.length){
+    const hl=document.createElement("div");hl.className="modal-sub-lbl";hl.textContent="📋 آخر 30 رقم";
+    const hc=document.createElement("div");hc.className="modal-hist";
+    sess.nums.slice(-30).forEach(({n})=>hc.appendChild(chip(n)));
+    body.appendChild(hl);body.appendChild(hc);
+  }
+  document.getElementById("sess-modal").style.display="flex";
+}
+
+/* ── Dealer select ── */
 function refreshSelect(){
   const sel=document.getElementById("dealer-select");
   sel.innerHTML='<option value="">— اختر ديلر —</option>';
-  dealers.forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;if(n===curDealer)o.selected=true;sel.appendChild(o);});
+  dealers.forEach(n=>{
+    const o=document.createElement("option");o.value=n;o.textContent=n;
+    if(n===curDealer)o.selected=true;
+    sel.appendChild(o);
+  });
 }
-function render(){renderMain();renderDealers();refreshSelect();}
+
+/* ── Full render ── */
+function render(){
+  renderMain();
+  renderSectors();
+  renderDealers();
+  renderSessions();
+  refreshSelect();
+  checkAlert();
+}
+
+/* ── Numpad ── */
 function buildPad(){
   const pad=document.getElementById("numpad");
-  for(let n=1;n<=36;n++){const btn=document.createElement("button");btn.className=`nkey ${color(n)}-key`;btn.textContent=n;btn.addEventListener("click",()=>addNum(n));pad.appendChild(btn);}
-  const zero=document.createElement("button");zero.className="nkey green-key zero-key";zero.textContent=0;zero.addEventListener("click",()=>addNum(0));pad.appendChild(zero);
+  for(let n=1;n<=36;n++){
+    const btn=document.createElement("button");
+    btn.className=`nkey ${color(n)}-key`;btn.textContent=n;
+    btn.addEventListener("click",()=>addNum(n));
+    pad.appendChild(btn);
+  }
+  const zero=document.createElement("button");
+  zero.className="nkey green-key zero-key";zero.textContent=0;
+  zero.addEventListener("click",()=>addNum(0));
+  pad.appendChild(zero);
 }
-function addNum(n){nums.push({n,t:Date.now(),dealer:curDealer||null});save();render();if(navigator.vibrate)navigator.vibrate(30);}
+
+function addNum(n){
+  nums.push({n,t:Date.now(),dealer:curDealer||null});
+  save();render();
+  if(navigator.vibrate)navigator.vibrate(30);
+}
+
+/* ── Bookmarklet ── */
 const BM_CODE=`javascript:void(function(){var s=document.createElement('script');s.src='https://fawaazq8i-dot.github.io/roulette-analyzer/inject.js?v='+Date.now();document.head.appendChild(s);s.onerror=function(){alert('الموقع منع التحميل. جرب الإدخال اليدوي في التطبيق.');}}())`;
 
-document.getElementById("copy-bm-btn").addEventListener("click",()=>{
-  navigator.clipboard.writeText(BM_CODE).then(()=>{
-    const ok=document.getElementById("copy-ok");
-    ok.style.display="block";
-    setTimeout(()=>ok.style.display="none",2500);
-  }).catch(()=>{
-    const ta=document.createElement("textarea");
-    ta.value=BM_CODE;ta.style.position="fixed";ta.style.opacity="0";
-    document.body.appendChild(ta);ta.select();document.execCommand("copy");
-    document.body.removeChild(ta);
-    const ok=document.getElementById("copy-ok");
-    ok.style.display="block";
-    setTimeout(()=>ok.style.display="none",2500);
+/* ── Event Listeners ── */
+
+// Tabs
+const ALL_TABS=["main","sectors","dealers","sessions","setup"];
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    btn.classList.add("active");
+    ALL_TABS.forEach(id=>document.getElementById("tab-"+id).style.display=btn.dataset.tab===id?"":"none");
   });
 });
 
-document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));btn.classList.add("active");
-    document.getElementById("tab-main").style.display=btn.dataset.tab==="main"?"":"none";
-    document.getElementById("tab-dealers").style.display=btn.dataset.tab==="dealers"?"":"none";
-    document.getElementById("tab-setup").style.display=btn.dataset.tab==="setup"?"":"none";
+// Copy BM
+document.getElementById("copy-bm-btn").addEventListener("click",()=>{
+  function showOk(){const ok=document.getElementById("copy-ok");ok.style.display="block";setTimeout(()=>ok.style.display="none",2500);}
+  navigator.clipboard.writeText(BM_CODE).then(showOk).catch(()=>{
+    const ta=document.createElement("textarea");ta.value=BM_CODE;ta.style.cssText="position:fixed;opacity:0";
+    document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);showOk();
   });
 });
+
+// Dealer controls
 document.getElementById("dealer-select").addEventListener("change",e=>{curDealer=e.target.value;save();});
-document.getElementById("add-dlr-btn").addEventListener("click",()=>{document.getElementById("add-dlr-form").classList.add("show");document.getElementById("dlr-name-inp").focus();});
-document.getElementById("cancel-dlr-btn").addEventListener("click",()=>{document.getElementById("add-dlr-form").classList.remove("show");document.getElementById("dlr-name-inp").value="";document.getElementById("dlr-name-inp").blur();});
-document.getElementById("save-dlr-btn").addEventListener("click",saveDealer);
-document.getElementById("dlr-name-inp").addEventListener("keydown",e=>{if(e.key==="Enter")saveDealer();if(e.key==="Escape")document.getElementById("cancel-dlr-btn").click();});
+document.getElementById("add-dlr-btn").addEventListener("click",()=>{
+  document.getElementById("add-dlr-form").classList.add("show");
+  document.getElementById("dlr-name-inp").focus();
+});
+document.getElementById("cancel-dlr-btn").addEventListener("click",()=>{
+  document.getElementById("add-dlr-form").classList.remove("show");
+  document.getElementById("dlr-name-inp").value="";
+  document.getElementById("dlr-name-inp").blur();
+});
 function saveDealer(){
   const inp=document.getElementById("dlr-name-inp"),name=inp.value.trim();if(!name)return;
   if(!dealers.includes(name))dealers.push(name);curDealer=name;inp.value="";inp.blur();
   document.getElementById("add-dlr-form").classList.remove("show");
-  save();refreshSelect();renderDealers();document.getElementById("dealer-select").value=name;
+  save();refreshSelect();renderDealers();
+  document.getElementById("dealer-select").value=name;
 }
-document.getElementById("del-dlr-btn").addEventListener("click",()=>{
-  if(!curDealer)return;if(!confirm(`حذف الديلر "${curDealer}"؟`))return;
-  dealers=dealers.filter(d=>d!==curDealer);curDealer="";save();refreshSelect();renderDealers();
+document.getElementById("save-dlr-btn").addEventListener("click",saveDealer);
+document.getElementById("dlr-name-inp").addEventListener("keydown",e=>{
+  if(e.key==="Enter")saveDealer();
+  if(e.key==="Escape")document.getElementById("cancel-dlr-btn").click();
 });
-document.getElementById("clear-btn").addEventListener("click",()=>{if(!confirm("مسح جميع الأرقام المسجلة؟"))return;nums=[];save();render();});
-if(window.visualViewport){window.visualViewport.addEventListener("resize",()=>{document.getElementById("app").style.height=window.visualViewport.height+"px";});}
+document.getElementById("del-dlr-btn").addEventListener("click",()=>{
+  if(!curDealer)return;
+  if(!confirm(`حذف الديلر "${curDealer}"؟`))return;
+  dealers=dealers.filter(d=>d!==curDealer);curDealer="";
+  save();refreshSelect();renderDealers();
+});
+
+// Clear
+document.getElementById("clear-btn").addEventListener("click",()=>{
+  if(!confirm("مسح جميع الأرقام المسجلة؟"))return;
+  nums=[];save();render();
+});
+
+// Alert threshold
+const atInp=document.getElementById("alert-threshold-inp");
+atInp.value=alertThreshold;
+atInp.addEventListener("change",()=>{
+  const v=parseInt(atInp.value);
+  alertThreshold=(!isNaN(v)&&v>0)?v:50;
+  atInp.value=alertThreshold;
+  saveAlertThreshold();checkAlert();
+});
+
+// Sessions
+document.getElementById("sess-save-btn").addEventListener("click",saveCurrentSession);
+document.getElementById("sess-name-inp").addEventListener("keydown",e=>{if(e.key==="Enter")saveCurrentSession();});
+
+// Modal
+document.getElementById("modal-close").addEventListener("click",()=>{document.getElementById("sess-modal").style.display="none";});
+document.getElementById("sess-modal").addEventListener("click",e=>{
+  if(e.target===document.getElementById("sess-modal"))document.getElementById("sess-modal").style.display="none";
+});
+
+// iOS viewport
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize",()=>{
+    document.getElementById("app").style.height=window.visualViewport.height+"px";
+  });
+}
+
+// Service Worker
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
-load();buildPad();render();
+
+// Boot
+load();
+document.getElementById("alert-threshold-inp").value=alertThreshold;
+buildPad();
+render();
 </script>
 </body>
 </html>
