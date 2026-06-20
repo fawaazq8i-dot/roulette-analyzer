@@ -184,7 +184,7 @@ function renderMain(){
   const hotEl=document.getElementById("hot");hotEl.innerHTML="";
   s.sorted.filter(x=>x.count>0).slice(0,8).forEach((x,i)=>{const c=chip(x.n,i===0?"hot1":i<=2?"hot2":"");c.title=`${x.count} مرة`;hotEl.appendChild(c);});
   const coldEl=document.getElementById("cold");coldEl.innerHTML="";
-  s.sorted.slice().reverse().slice(0,8).forEach(x=>{const c=chip(x.n,"cold");c.title=`${x.count} مرة`;coldEl.appendChild(c);});
+  s.sorted.filter(x=>x.count>0).slice().reverse().slice(0,8).forEach(x=>{const c=chip(x.n,"cold");c.title=`${x.count} مرة`;coldEl.appendChild(c);});
   const odEl=document.getElementById("overdue");odEl.innerHTML="";
   s.overdue.slice(0,10).forEach(x=>{const c=chip(x.n);c.title=`غائب ${x.gap} لفة`;odEl.appendChild(c);});
   const histEl=document.getElementById("hist");histEl.innerHTML="";
@@ -195,20 +195,22 @@ function renderDealers(){
   if(!dealers.length){el.innerHTML='<div class="empty-msg">لا يوجد ديلرات.<br/>اضغط ＋ لإضافة ديلر.</div>';return;}
   dealers.forEach(name=>{
     const dn=nums.filter(x=>x.dealer===name),card=document.createElement("div");card.className="dlr-card";
-    if(!dn.length){card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">لا توجد بيانات</span></div>`;el.appendChild(card);return;}
+    const hdr=document.createElement("div");hdr.className="dlr-card-hdr";
+    const nm=document.createElement("span");nm.className="dlr-name";nm.textContent="👤 "+name;
+    if(!dn.length){
+      const sp=document.createElement("span");sp.className="dlr-spins";sp.textContent="لا توجد بيانات";
+      hdr.appendChild(nm);hdr.appendChild(sp);card.appendChild(hdr);el.appendChild(card);return;
+    }
     const s=stats(dn),t=dn.length;
     const pr=Math.round(s.r/t*100),pb=Math.round(s.b/t*100),pg=Math.round(s.g/t*100);
     const top5=s.sorted.filter(x=>x.count>0).slice(0,5);
-    const eid="f"+Math.random().toString(36).slice(2);
-    card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">${t} لفة</span></div>
-      <div class="fav-lbl">الأرقام المفضلة</div><div class="fav-chips" id="${eid}"></div>
-      <div class="clr-row">
-        <div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div>
-        <div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div>
-        <div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>
-      </div>`;
-    el.appendChild(card);
-    const fc=card.querySelector("#"+eid);
+    const sp=document.createElement("span");sp.className="dlr-spins";sp.textContent=t+" لفة";
+    hdr.appendChild(nm);hdr.appendChild(sp);card.appendChild(hdr);
+    const fl=document.createElement("div");fl.className="fav-lbl";fl.textContent="الأرقام المفضلة";card.appendChild(fl);
+    const fc=document.createElement("div");fc.className="fav-chips";card.appendChild(fc);
+    const cr=document.createElement("div");cr.className="clr-row";
+    cr.innerHTML=`<div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div><div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div><div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>`;
+    card.appendChild(cr);el.appendChild(card);
     top5.forEach((x,i)=>{const w=document.createElement("div");w.className="fav-wrap";const c=chip(x.n);c.title=`${x.count} مرة`;const rk=document.createElement("div");rk.className="fav-rank";rk.textContent=i+1;w.appendChild(c);w.appendChild(rk);fc.appendChild(w);});
   });
 }
