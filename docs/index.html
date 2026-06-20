@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="روليت"/>
+<meta name="apple-touch-fullscreen" content="yes"/>
 <meta name="theme-color" content="#0d0f14"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
@@ -346,6 +347,13 @@ function renderMain(){
   nums.slice(-20).forEach(({n})=>histEl.appendChild(chip(n)));
 }
 
+// Escape HTML to prevent XSS when inserting user-provided dealer names into innerHTML
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
+  );
+}
+
 // ── Render dealers ──
 function renderDealers(){
   const el=document.getElementById("dlr-list"); el.innerHTML="";
@@ -356,32 +364,50 @@ function renderDealers(){
   dealers.forEach(name=>{
     const dn=nums.filter(x=>x.dealer===name);
     const card=document.createElement("div"); card.className="dlr-card";
+
+    // Header — escape name to prevent XSS
+    const hdr=document.createElement("div"); hdr.className="dlr-card-hdr";
+    const nm=document.createElement("span"); nm.className="dlr-name"; nm.textContent=`👤 ${name}`;
+    const sp=document.createElement("span"); sp.className="dlr-spins";
+
     if(!dn.length){
-      card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">لا توجد بيانات</span></div>`;
+      sp.textContent="لا توجد بيانات";
+      hdr.appendChild(nm); hdr.appendChild(sp);
+      card.appendChild(hdr);
       el.appendChild(card); return;
     }
+
     const s=stats(dn);
     const t=dn.length;
     const pr=Math.round(s.r/t*100), pb=Math.round(s.b/t*100), pg=Math.round(s.g/t*100);
     const top5=s.sorted.filter(x=>x.count>0).slice(0,5);
 
-    card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">${t} لفة</span></div>
-      <div class="fav-lbl">الأرقام المفضلة</div>
-      <div class="fav-chips" id="fav-${name}"></div>
-      <div class="clr-row">
-        <div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div>
-        <div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div>
-        <div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>
-      </div>`;
-    el.appendChild(card);
+    sp.textContent=`${t} لفة`;
+    hdr.appendChild(nm); hdr.appendChild(sp);
+    card.appendChild(hdr);
 
-    const fc=card.querySelector(`#fav-${name}`);
+    // Favorite numbers — built programmatically, no id/querySelector on user data
+    const favLbl=document.createElement("div"); favLbl.className="fav-lbl";
+    favLbl.textContent="الأرقام المفضلة";
+    card.appendChild(favLbl);
+
+    const fc=document.createElement("div"); fc.className="fav-chips";
     top5.forEach((x,i)=>{
       const w=document.createElement("div"); w.className="fav-wrap";
       const c=chip(x.n); c.title=`${x.count} مرة`;
       const rk=document.createElement("div"); rk.className="fav-rank"; rk.textContent=i+1;
       w.appendChild(c); w.appendChild(rk); fc.appendChild(w);
     });
+    card.appendChild(fc);
+
+    // Color pills — only numbers, safe to use innerHTML
+    const cr=document.createElement("div"); cr.className="clr-row";
+    cr.innerHTML=`
+      <div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div>
+      <div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div>
+      <div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>`;
+    card.appendChild(cr);
+    el.appendChild(card);
   });
 }
 
@@ -479,10 +505,12 @@ document.getElementById("clear-btn").addEventListener("click",()=>{
   nums=[]; save(); render();
 });
 
-// ── Service Worker ──
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("./sw.js").catch(()=>{});
-}
+// ── Service Worker — registered after page load so it doesn't compete with first paint ──
+window.addEventListener("load", () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  }
+});
 
 // ── Init ──
 load();
