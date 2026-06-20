@@ -2,97 +2,60 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="روليت"/>
-<meta name="apple-touch-fullscreen" content="yes"/>
 <meta name="theme-color" content="#0d0f14"/>
 <link rel="manifest" href="manifest.json"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <title>محلل الروليت</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:'Segoe UI',Tahoma,sans-serif;overflow:hidden}
-
-/* ── Layout ── */
+html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;overscroll-behavior:none;overflow:hidden}
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
-
-/* ── Header ── */
-.hdr{display:flex;align-items:center;justify-content:space-between;
-  background:#161923;padding:12px 16px;border-bottom:1px solid #2d3748;flex-shrink:0}
+.hdr{display:flex;align-items:center;justify-content:space-between;background:#161923;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));border-bottom:1px solid #2d3748;flex-shrink:0}
 .hdr-title{font-size:16px;font-weight:700}
 .hdr-right{display:flex;align-items:center;gap:10px}
 #total-badge{background:#2d3748;border-radius:12px;padding:3px 10px;font-size:12px;color:#a0aec0}
-#clear-btn{background:none;border:none;font-size:18px;opacity:.6;cursor:pointer;padding:4px}
-
-/* ── Dealer bar ── */
-.dealer-bar{display:flex;align-items:center;gap:8px;padding:8px 16px;
-  background:#111318;border-bottom:1px solid #2d3748;flex-shrink:0}
+#clear-btn{background:none;border:none;font-size:18px;opacity:.6;cursor:pointer;min-width:44px;min-height:44px}
+.dealer-bar{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#111318;border-bottom:1px solid #2d3748;flex-shrink:0}
 .dlr-lbl{font-size:11px;color:#718096;white-space:nowrap}
-#dealer-select{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;
-  color:#e2e8f0;padding:6px 8px;font-size:13px;outline:none}
-.dlr-btn{background:none;border:1px solid #2d3748;border-radius:8px;color:#a0aec0;
-  width:32px;height:32px;font-size:18px;cursor:pointer;line-height:1;flex-shrink:0}
+#dealer-select{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:6px 8px;font-size:16px;outline:none}
+.dlr-btn{background:none;border:1px solid #2d3748;border-radius:8px;color:#a0aec0;min-width:44px;min-height:44px;font-size:18px;cursor:pointer;line-height:1;flex-shrink:0}
 #add-dlr-btn:active{color:#68d391;border-color:#68d391}
 #del-dlr-btn:active{color:#fc8181;border-color:#fc8181}
-
-/* ── Add dealer form ── */
-#add-dlr-form{display:none;align-items:center;gap:8px;padding:8px 16px;
-  background:#0d1117;border-bottom:1px solid #2d3748;flex-shrink:0}
+#add-dlr-form{display:none;align-items:center;gap:8px;padding:8px 16px;background:#0d1117;border-bottom:1px solid #2d3748;flex-shrink:0}
 #add-dlr-form.show{display:flex}
-#dlr-name-inp{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;
-  color:#e2e8f0;padding:7px 10px;font-size:14px;outline:none}
-#save-dlr-btn{background:#2b6cb0;color:#fff;border:none;border-radius:8px;
-  padding:7px 14px;font-size:13px;cursor:pointer}
-#cancel-dlr-btn{background:#2d3748;color:#a0aec0;border:none;border-radius:8px;
-  padding:7px 10px;font-size:13px;cursor:pointer}
-
-/* ── Tabs ── */
+#dlr-name-inp{flex:1;background:#1a202c;border:1px solid #2d3748;border-radius:8px;color:#e2e8f0;padding:10px;font-size:16px;outline:none}
+#save-dlr-btn{background:#2b6cb0;color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointer;min-height:44px}
+#cancel-dlr-btn{background:#2d3748;color:#a0aec0;border:none;border-radius:8px;padding:10px;font-size:14px;cursor:pointer;min-height:44px}
 .tabs{display:flex;border-bottom:1px solid #2d3748;flex-shrink:0}
-.tab{flex:1;padding:10px;background:none;border:none;color:#718096;font-size:13px;
-  cursor:pointer;border-bottom:2px solid transparent}
+.tab{flex:1;padding:12px;background:none;border:none;color:#718096;font-size:14px;cursor:pointer;border-bottom:2px solid transparent;min-height:44px}
 .tab.active{color:#63b3ed;border-bottom-color:#63b3ed}
-
-/* ── Scrollable content ── */
-.tab-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-
-/* ── Last number ── */
+.tab-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .last-box{text-align:center;padding:16px 0 12px;border-bottom:1px solid #2d3748}
 .last-lbl{font-size:11px;color:#718096;margin-bottom:4px}
 #last-num{font-size:56px;font-weight:900;line-height:1;min-height:62px}
-#last-num.red{color:#fc4949}
-#last-num.black{color:#e2e8f0}
-#last-num.green{color:#38a169}
+#last-num.red{color:#fc4949}#last-num.black{color:#e2e8f0}#last-num.green{color:#38a169}
 #last-dlr-tag{font-size:12px;color:#f6ad55;margin-top:4px;min-height:18px}
-
-/* ── Sections ── */
 .sec{padding:12px 16px;border-bottom:1px solid #1a202c}
-.sec-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;
-  letter-spacing:.5px;margin-bottom:10px}
-
-/* Color bars */
+.sec-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .cbars{display:flex;flex-direction:column;gap:7px}
 .brow{display:flex;align-items:center;gap:8px}
 .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.dot.red{background:#fc4949}.dot.black{background:#718096;border:1px solid #4a5568}
-.dot.green{background:#38a169}
+.dot.red{background:#fc4949}.dot.black{background:#718096;border:1px solid #4a5568}.dot.green{background:#38a169}
 .blbl{width:34px;font-size:12px;color:#a0aec0}
 .btrack{flex:1;height:7px;background:#2d3748;border-radius:4px;overflow:hidden}
 .bfill{height:100%;border-radius:4px;width:0;transition:width .4s}
 .rf{background:#fc4949}.bf{background:#718096}.gf{background:#38a169}
 .pct{font-size:11px;color:#718096;width:30px;text-align:left}
-
-/* Odd/Even */
 .two-col{display:flex;gap:10px}
 .sbox{flex:1;background:#161923;border-radius:10px;padding:10px;text-align:center}
 .sval{font-size:26px;font-weight:700;color:#63b3ed}
 .slbl{font-size:12px;color:#718096;margin-top:3px}
-
-/* Chips */
 .chips{display:flex;flex-wrap:wrap;gap:5px}
-.chip{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:12px;font-weight:700}
+.chip{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
 .chip.red{background:#7c1d1d;color:#fc4949;border:1px solid #fc4949}
 .chip.black{background:#1a202c;color:#a0aec0;border:1px solid #4a5568}
 .chip.green{background:#1c3a2b;color:#38a169;border:1px solid #38a169}
@@ -101,101 +64,70 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:'Segoe UI',Ta
 .chip.cold{opacity:.45}
 .hist-row{flex-direction:row-reverse}
 .overdue-note{font-size:11px;color:#4a5568;margin-bottom:7px}
-
-/* ── Number pad ── */
-.numpad-section{padding:12px 16px 16px;flex-shrink:0}
-.numpad-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;
-  letter-spacing:.5px;margin-bottom:10px}
-.numpad{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.nkey{aspect-ratio:1;border-radius:50%;border:1px solid #2d3748;background:#161923;
-  color:#e2e8f0;font-size:13px;font-weight:600;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .1s,background .1s;user-select:none}
-.nkey:active{transform:scale(.88);background:#2d3748}
+.numpad-section{padding:12px 16px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.numpad-title{font-size:11px;font-weight:600;color:#718096;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.numpad{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.nkey{aspect-ratio:1;min-height:44px;border-radius:50%;border:1px solid #2d3748;background:#161923;color:#e2e8f0;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .1s,background .1s;user-select:none}
+.nkey:active{transform:scale(.85);background:#2d3748}
 .nkey.red-key{background:#7c1d1d;color:#fc4949;border-color:#fc4949}
 .nkey.black-key{background:#1a202c;color:#a0aec0;border-color:#4a5568}
 .nkey.green-key{background:#1c3a2b;color:#38a169;border-color:#38a169}
-
-/* ── Dealers tab ── */
-.dlr-list{padding:12px 16px;display:flex;flex-direction:column;gap:14px}
+.zero-key{grid-column:3/span 2;border-radius:22px;aspect-ratio:unset;height:44px}
+.dlr-list{padding:12px 16px;display:flex;flex-direction:column;gap:14px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .empty-msg{color:#4a5568;font-size:13px;text-align:center;padding:30px 0}
 .dlr-card{background:#161923;border-radius:12px;border:1px solid #2d3748;padding:12px 14px}
 .dlr-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .dlr-name{font-weight:700;font-size:14px;color:#f6ad55}
 .dlr-spins{font-size:12px;color:#718096}
 .fav-lbl{font-size:10px;color:#718096;margin-bottom:7px;text-transform:uppercase}
-.fav-chips{display:flex;flex-wrap:wrap;gap:5px;padding-top:4px}
+.fav-chips{display:flex;flex-wrap:wrap;gap:5px;padding-top:6px}
 .fav-wrap{position:relative}
-.fav-wrap .chip{width:30px;height:30px;font-size:11px}
-.fav-rank{position:absolute;top:-5px;right:-5px;background:#f6ad55;color:#000;
-  border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;
-  display:flex;align-items:center;justify-content:center}
+.fav-wrap .chip{width:32px;height:32px;font-size:11px}
+.fav-rank{position:absolute;top:-5px;right:-5px;background:#f6ad55;color:#000;border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .clr-row{display:flex;gap:8px;margin-top:10px}
 .clr-pill{flex:1;background:#0d0f14;border-radius:8px;padding:6px;text-align:center}
 .clr-pill .pv{font-size:16px;font-weight:700}
-.clr-pill.rp .pv{color:#fc4949}
-.clr-pill.bp .pv{color:#a0aec0}
-.clr-pill.gp .pv{color:#38a169}
+.clr-pill.rp .pv{color:#fc4949}.clr-pill.bp .pv{color:#a0aec0}.clr-pill.gp .pv{color:#38a169}
 .clr-pill .pl{font-size:10px;color:#718096}
 </style>
 </head>
 <body>
 <div id="app">
-
-  <!-- Header -->
   <div class="hdr">
     <span class="hdr-title">🎰 محلل الروليت</span>
-    <div class="hdr-right">
-      <span id="total-badge">0 لفة</span>
-      <button id="clear-btn">🗑️</button>
-    </div>
+    <div class="hdr-right"><span id="total-badge">0 لفة</span><button id="clear-btn">🗑️</button></div>
   </div>
-
-  <!-- Dealer bar -->
   <div class="dealer-bar">
     <span class="dlr-lbl">الديلر:</span>
     <select id="dealer-select"><option value="">— اختر ديلر —</option></select>
     <button class="dlr-btn" id="add-dlr-btn">＋</button>
     <button class="dlr-btn" id="del-dlr-btn">✕</button>
   </div>
-
-  <!-- Add dealer form -->
   <div id="add-dlr-form">
-    <input id="dlr-name-inp" type="text" placeholder="اسم الديلر" maxlength="30"/>
+    <input id="dlr-name-inp" type="text" inputmode="text" autocomplete="off"
+           autocorrect="off" autocapitalize="words" spellcheck="false"
+           placeholder="اسم الديلر" maxlength="30"/>
     <button id="save-dlr-btn">حفظ</button>
     <button id="cancel-dlr-btn">إلغاء</button>
   </div>
-
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab active" data-tab="main">إحصائيات</button>
     <button class="tab" data-tab="dealers">الديلرات</button>
   </div>
-
-  <!-- ── Tab: Main ── -->
   <div id="tab-main" class="tab-content">
-
-    <!-- Last number -->
     <div class="last-box">
       <div class="last-lbl">آخر رقم</div>
       <div id="last-num">—</div>
       <div id="last-dlr-tag"></div>
     </div>
-
-    <!-- Colors -->
     <div class="sec">
       <div class="sec-title">توزيع الألوان</div>
       <div class="cbars">
-        <div class="brow"><span class="dot red"></span><span class="blbl">أحمر</span>
-          <div class="btrack"><div id="br" class="bfill rf"></div></div><span id="pr" class="pct">0%</span></div>
-        <div class="brow"><span class="dot black"></span><span class="blbl">أسود</span>
-          <div class="btrack"><div id="bb" class="bfill bf"></div></div><span id="pb" class="pct">0%</span></div>
-        <div class="brow"><span class="dot green"></span><span class="blbl">أخضر</span>
-          <div class="btrack"><div id="bg" class="bfill gf"></div></div><span id="pg" class="pct">0%</span></div>
+        <div class="brow"><span class="dot red"></span><span class="blbl">أحمر</span><div class="btrack"><div id="br" class="bfill rf"></div></div><span id="pr" class="pct">0%</span></div>
+        <div class="brow"><span class="dot black"></span><span class="blbl">أسود</span><div class="btrack"><div id="bb" class="bfill bf"></div></div><span id="pb" class="pct">0%</span></div>
+        <div class="brow"><span class="dot green"></span><span class="blbl">أخضر</span><div class="btrack"><div id="bg" class="bfill gf"></div></div><span id="pg" class="pct">0%</span></div>
       </div>
     </div>
-
-    <!-- Odd/Even -->
     <div class="sec">
       <div class="sec-title">فردي / زوجي</div>
       <div class="two-col">
@@ -203,319 +135,121 @@ html,body{height:100%;background:#0d0f14;color:#e2e8f0;font-family:'Segoe UI',Ta
         <div class="sbox"><div class="sval" id="even">0</div><div class="slbl">زوجي</div></div>
       </div>
     </div>
-
-    <!-- Hot -->
-    <div class="sec">
-      <div class="sec-title">🔥 أرقام ساخنة</div>
-      <div id="hot" class="chips"></div>
-    </div>
-
-    <!-- Cold -->
-    <div class="sec">
-      <div class="sec-title">❄️ أرقام باردة</div>
-      <div id="cold" class="chips"></div>
-    </div>
-
-    <!-- Overdue -->
+    <div class="sec"><div class="sec-title">🔥 أرقام ساخنة</div><div id="hot" class="chips"></div></div>
+    <div class="sec"><div class="sec-title">❄️ أرقام باردة</div><div id="cold" class="chips"></div></div>
     <div class="sec">
       <div class="sec-title">⏳ أرقام متأخرة إحصائياً</div>
       <div class="overdue-note">لم تظهر أكثر من المتوسط (37 لفة)</div>
       <div id="overdue" class="chips"></div>
     </div>
-
-    <!-- History -->
-    <div class="sec">
-      <div class="sec-title">📋 آخر 20 رقم</div>
-      <div id="hist" class="chips hist-row"></div>
-    </div>
-
-    <!-- Number pad -->
+    <div class="sec"><div class="sec-title">📋 آخر 20 رقم</div><div id="hist" class="chips hist-row"></div></div>
     <div class="numpad-section">
       <div class="numpad-title">اضغط الرقم لتسجيله</div>
       <div class="numpad" id="numpad"></div>
     </div>
-
-  </div><!-- /tab-main -->
-
-  <!-- ── Tab: Dealers ── -->
+  </div>
   <div id="tab-dealers" class="tab-content" style="display:none">
     <div class="dlr-list" id="dlr-list"></div>
   </div>
-
 </div>
-
 <script>
-const RED = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
-function color(n){ return n===0?"green":RED.has(n)?"red":"black"; }
-
-// ── State ──
-let nums=[], dealers=[], curDealer="";
-
-function load(){
-  try{
-    nums    = JSON.parse(localStorage.getItem("ra_nums")||"[]");
-    dealers = JSON.parse(localStorage.getItem("ra_dealers")||"[]");
-    curDealer = localStorage.getItem("ra_dealer")||"";
-  }catch(e){ nums=[]; dealers=[]; curDealer=""; }
-}
-
-function save(){
-  localStorage.setItem("ra_nums",    JSON.stringify(nums));
-  localStorage.setItem("ra_dealers", JSON.stringify(dealers));
-  localStorage.setItem("ra_dealer",  curDealer);
-}
-
-// ── Stats ──
+const RED=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+function color(n){return n===0?"green":RED.has(n)?"red":"black";}
+let nums=[],dealers=[],curDealer="";
+function load(){try{nums=JSON.parse(localStorage.getItem("ra_nums")||"[]");dealers=JSON.parse(localStorage.getItem("ra_dealers")||"[]");curDealer=localStorage.getItem("ra_dealer")||"";}catch(e){nums=[];dealers=[];curDealer="";}}
+function save(){localStorage.setItem("ra_nums",JSON.stringify(nums));localStorage.setItem("ra_dealers",JSON.stringify(dealers));localStorage.setItem("ra_dealer",curDealer);}
 function stats(arr){
-  const freq={};
-  for(let i=0;i<=36;i++) freq[i]=0;
+  const freq={};for(let i=0;i<=36;i++)freq[i]=0;
   let r=0,b=0,g=0,odd=0,even=0;
-  arr.forEach(({n})=>{
-    freq[n]++;
-    const c=color(n);
-    if(c==="red")r++; else if(c==="black")b++; else g++;
-    if(n!==0){n%2===1?odd++:even++;}
-  });
-  const total=arr.length;
-  const lastSeen={};
-  arr.forEach(({n},i)=>{ lastSeen[n]=i; });
+  arr.forEach(({n})=>{freq[n]++;const c=color(n);if(c==="red")r++;else if(c==="black")b++;else g++;if(n!==0){n%2===1?odd++:even++;}});
+  const total=arr.length,lastSeen={};
+  arr.forEach(({n},i)=>{lastSeen[n]=i;});
   const overdue=[];
-  for(let i=0;i<=36;i++){
-    const last=lastSeen[i]!==undefined?lastSeen[i]:-1;
-    const gap=total-1-last;
-    if(gap>=37) overdue.push({n:i,gap});
-  }
+  for(let i=0;i<=36;i++){const last=lastSeen[i]!==undefined?lastSeen[i]:-1;const gap=total-1-last;if(gap>=37)overdue.push({n:i,gap});}
   overdue.sort((a,b)=>b.gap-a.gap);
-  const sorted=Object.entries(freq)
-    .map(([n,c])=>({n:parseInt(n),count:c}))
-    .sort((a,b)=>b.count-a.count);
-  return{freq,r,b,g,odd,even,total,sorted,overdue};
+  const sorted=Object.entries(freq).map(([n,c])=>({n:parseInt(n),count:c})).sort((a,b)=>b.count-a.count);
+  return{r,b,g,odd,even,total,sorted,overdue};
 }
-
-// ── Chip ──
-function chip(n,cls=""){
-  const d=document.createElement("div");
-  d.className=`chip ${color(n)} ${cls}`.trim();
-  d.textContent=n;
-  return d;
-}
-
-// ── Render main ──
+function chip(n,cls=""){const d=document.createElement("div");d.className=`chip ${color(n)} ${cls}`.trim();d.textContent=n;return d;}
 function renderMain(){
   const s=stats(nums);
   document.getElementById("total-badge").textContent=`${s.total} لفة`;
-
-  const ln=document.getElementById("last-num");
-  const lt=document.getElementById("last-dlr-tag");
-  if(nums.length){
-    const last=nums[nums.length-1];
-    ln.textContent=last.n; ln.className=color(last.n);
-    lt.textContent=last.dealer?`الديلر: ${last.dealer}`:"";
-  } else { ln.textContent="—"; ln.className=""; lt.textContent=""; }
-
-  const t=s.total;
-  const pr=t?Math.round(s.r/t*100):0;
-  const pb=t?Math.round(s.b/t*100):0;
-  const pg=t?Math.round(s.g/t*100):0;
-  document.getElementById("br").style.width=pr+"%";
-  document.getElementById("bb").style.width=pb+"%";
-  document.getElementById("bg").style.width=pg+"%";
-  document.getElementById("pr").textContent=pr+"%";
-  document.getElementById("pb").textContent=pb+"%";
-  document.getElementById("pg").textContent=pg+"%";
-
-  document.getElementById("odd").textContent=s.odd;
-  document.getElementById("even").textContent=s.even;
-
-  const hotEl=document.getElementById("hot"); hotEl.innerHTML="";
-  s.sorted.filter(x=>x.count>0).slice(0,8).forEach((x,i)=>{
-    const c=chip(x.n,i===0?"hot1":i<=2?"hot2":"");
-    c.title=`${x.count} مرة`; hotEl.appendChild(c);
-  });
-
-  const coldEl=document.getElementById("cold"); coldEl.innerHTML="";
-  s.sorted.slice().reverse().slice(0,8).forEach(x=>{
-    const c=chip(x.n,"cold"); c.title=`${x.count} مرة`; coldEl.appendChild(c);
-  });
-
-  const odEl=document.getElementById("overdue"); odEl.innerHTML="";
-  s.overdue.slice(0,10).forEach(x=>{
-    const c=chip(x.n); c.title=`غائب ${x.gap} لفة`; odEl.appendChild(c);
-  });
-
-  const histEl=document.getElementById("hist"); histEl.innerHTML="";
+  const ln=document.getElementById("last-num"),lt=document.getElementById("last-dlr-tag");
+  if(nums.length){const last=nums[nums.length-1];ln.textContent=last.n;ln.className=color(last.n);lt.textContent=last.dealer?`الديلر: ${last.dealer}`:"";
+  }else{ln.textContent="—";ln.className="";lt.textContent="";}
+  const t=s.total,pr=t?Math.round(s.r/t*100):0,pb=t?Math.round(s.b/t*100):0,pg=t?Math.round(s.g/t*100):0;
+  document.getElementById("br").style.width=pr+"%";document.getElementById("bb").style.width=pb+"%";document.getElementById("bg").style.width=pg+"%";
+  document.getElementById("pr").textContent=pr+"%";document.getElementById("pb").textContent=pb+"%";document.getElementById("pg").textContent=pg+"%";
+  document.getElementById("odd").textContent=s.odd;document.getElementById("even").textContent=s.even;
+  const hotEl=document.getElementById("hot");hotEl.innerHTML="";
+  s.sorted.filter(x=>x.count>0).slice(0,8).forEach((x,i)=>{const c=chip(x.n,i===0?"hot1":i<=2?"hot2":"");c.title=`${x.count} مرة`;hotEl.appendChild(c);});
+  const coldEl=document.getElementById("cold");coldEl.innerHTML="";
+  s.sorted.slice().reverse().slice(0,8).forEach(x=>{const c=chip(x.n,"cold");c.title=`${x.count} مرة`;coldEl.appendChild(c);});
+  const odEl=document.getElementById("overdue");odEl.innerHTML="";
+  s.overdue.slice(0,10).forEach(x=>{const c=chip(x.n);c.title=`غائب ${x.gap} لفة`;odEl.appendChild(c);});
+  const histEl=document.getElementById("hist");histEl.innerHTML="";
   nums.slice(-20).forEach(({n})=>histEl.appendChild(chip(n)));
 }
-
-// Escape HTML to prevent XSS when inserting user-provided dealer names into innerHTML
-function esc(s){
-  return String(s).replace(/[&<>"']/g, c =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
-  );
-}
-
-// ── Render dealers ──
 function renderDealers(){
-  const el=document.getElementById("dlr-list"); el.innerHTML="";
-  if(!dealers.length){
-    el.innerHTML='<div class="empty-msg">لا يوجد ديلرات.<br/>اضغط ＋ لإضافة ديلر.</div>';
-    return;
-  }
+  const el=document.getElementById("dlr-list");el.innerHTML="";
+  if(!dealers.length){el.innerHTML='<div class="empty-msg">لا يوجد ديلرات.<br/>اضغط ＋ لإضافة ديلر.</div>';return;}
   dealers.forEach(name=>{
-    const dn=nums.filter(x=>x.dealer===name);
-    const card=document.createElement("div"); card.className="dlr-card";
-
-    // Header — escape name to prevent XSS
-    const hdr=document.createElement("div"); hdr.className="dlr-card-hdr";
-    const nm=document.createElement("span"); nm.className="dlr-name"; nm.textContent=`👤 ${name}`;
-    const sp=document.createElement("span"); sp.className="dlr-spins";
-
-    if(!dn.length){
-      sp.textContent="لا توجد بيانات";
-      hdr.appendChild(nm); hdr.appendChild(sp);
-      card.appendChild(hdr);
-      el.appendChild(card); return;
-    }
-
-    const s=stats(dn);
-    const t=dn.length;
-    const pr=Math.round(s.r/t*100), pb=Math.round(s.b/t*100), pg=Math.round(s.g/t*100);
+    const dn=nums.filter(x=>x.dealer===name),card=document.createElement("div");card.className="dlr-card";
+    if(!dn.length){card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">لا توجد بيانات</span></div>`;el.appendChild(card);return;}
+    const s=stats(dn),t=dn.length;
+    const pr=Math.round(s.r/t*100),pb=Math.round(s.b/t*100),pg=Math.round(s.g/t*100);
     const top5=s.sorted.filter(x=>x.count>0).slice(0,5);
-
-    sp.textContent=`${t} لفة`;
-    hdr.appendChild(nm); hdr.appendChild(sp);
-    card.appendChild(hdr);
-
-    // Favorite numbers — built programmatically, no id/querySelector on user data
-    const favLbl=document.createElement("div"); favLbl.className="fav-lbl";
-    favLbl.textContent="الأرقام المفضلة";
-    card.appendChild(favLbl);
-
-    const fc=document.createElement("div"); fc.className="fav-chips";
-    top5.forEach((x,i)=>{
-      const w=document.createElement("div"); w.className="fav-wrap";
-      const c=chip(x.n); c.title=`${x.count} مرة`;
-      const rk=document.createElement("div"); rk.className="fav-rank"; rk.textContent=i+1;
-      w.appendChild(c); w.appendChild(rk); fc.appendChild(w);
-    });
-    card.appendChild(fc);
-
-    // Color pills — only numbers, safe to use innerHTML
-    const cr=document.createElement("div"); cr.className="clr-row";
-    cr.innerHTML=`
-      <div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div>
-      <div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div>
-      <div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>`;
-    card.appendChild(cr);
+    const eid="f"+Math.random().toString(36).slice(2);
+    card.innerHTML=`<div class="dlr-card-hdr"><span class="dlr-name">👤 ${name}</span><span class="dlr-spins">${t} لفة</span></div>
+      <div class="fav-lbl">الأرقام المفضلة</div><div class="fav-chips" id="${eid}"></div>
+      <div class="clr-row">
+        <div class="clr-pill rp"><div class="pv">${pr}%</div><div class="pl">أحمر</div></div>
+        <div class="clr-pill bp"><div class="pv">${pb}%</div><div class="pl">أسود</div></div>
+        <div class="clr-pill gp"><div class="pv">${pg}%</div><div class="pl">أخضر</div></div>
+      </div>`;
     el.appendChild(card);
+    const fc=card.querySelector("#"+eid);
+    top5.forEach((x,i)=>{const w=document.createElement("div");w.className="fav-wrap";const c=chip(x.n);c.title=`${x.count} مرة`;const rk=document.createElement("div");rk.className="fav-rank";rk.textContent=i+1;w.appendChild(c);w.appendChild(rk);fc.appendChild(w);});
   });
 }
-
-// ── Dealer select ──
 function refreshSelect(){
   const sel=document.getElementById("dealer-select");
   sel.innerHTML='<option value="">— اختر ديلر —</option>';
-  dealers.forEach(n=>{
-    const o=document.createElement("option");
-    o.value=n; o.textContent=n;
-    if(n===curDealer) o.selected=true;
-    sel.appendChild(o);
-  });
+  dealers.forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;if(n===curDealer)o.selected=true;sel.appendChild(o);});
 }
-
-// ── Full render ──
-function render(){ renderMain(); renderDealers(); refreshSelect(); }
-
-// ── Number pad ──
+function render(){renderMain();renderDealers();refreshSelect();}
 function buildPad(){
   const pad=document.getElementById("numpad");
-  const order=[
-    3,6,9,12,15,18,21,
-    2,5,8,11,14,17,20,
-    1,4,7,10,13,16,19,
-    22,23,24,25,26,27,28,
-    29,30,31,32,33,34,35,
-    36,0
-  ];
-  order.forEach(n=>{
-    const btn=document.createElement("button");
-    btn.className=`nkey ${color(n)}-key`;
-    btn.textContent=n;
-    btn.addEventListener("click",()=>addNum(n));
-    pad.appendChild(btn);
-  });
+  for(let n=1;n<=36;n++){const btn=document.createElement("button");btn.className=`nkey ${color(n)}-key`;btn.textContent=n;btn.addEventListener("click",()=>addNum(n));pad.appendChild(btn);}
+  const zero=document.createElement("button");zero.className="nkey green-key zero-key";zero.textContent=0;zero.addEventListener("click",()=>addNum(0));pad.appendChild(zero);
 }
-
-function addNum(n){
-  nums.push({n,t:Date.now(),dealer:curDealer||null});
-  save(); render();
-  // Haptic feedback on iOS
-  if(navigator.vibrate) navigator.vibrate(30);
-}
-
-// ── Tabs ──
+function addNum(n){nums.push({n,t:Date.now(),dealer:curDealer||null});save();render();if(navigator.vibrate)navigator.vibrate(30);}
 document.querySelectorAll(".tab").forEach(btn=>{
   btn.addEventListener("click",()=>{
-    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("tab-main").style.display   = btn.dataset.tab==="main"   ?"":"none";
-    document.getElementById("tab-dealers").style.display= btn.dataset.tab==="dealers"?"":"none";
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));btn.classList.add("active");
+    document.getElementById("tab-main").style.display=btn.dataset.tab==="main"?"":"none";
+    document.getElementById("tab-dealers").style.display=btn.dataset.tab==="dealers"?"":"none";
   });
 });
-
-// ── Dealer controls ──
-document.getElementById("dealer-select").addEventListener("change",e=>{
-  curDealer=e.target.value; save();
-});
-
-document.getElementById("add-dlr-btn").addEventListener("click",()=>{
-  document.getElementById("add-dlr-form").classList.add("show");
-  document.getElementById("dlr-name-inp").focus();
-});
-document.getElementById("cancel-dlr-btn").addEventListener("click",()=>{
-  document.getElementById("add-dlr-form").classList.remove("show");
-  document.getElementById("dlr-name-inp").value="";
-});
+document.getElementById("dealer-select").addEventListener("change",e=>{curDealer=e.target.value;save();});
+document.getElementById("add-dlr-btn").addEventListener("click",()=>{document.getElementById("add-dlr-form").classList.add("show");document.getElementById("dlr-name-inp").focus();});
+document.getElementById("cancel-dlr-btn").addEventListener("click",()=>{document.getElementById("add-dlr-form").classList.remove("show");document.getElementById("dlr-name-inp").value="";document.getElementById("dlr-name-inp").blur();});
 document.getElementById("save-dlr-btn").addEventListener("click",saveDealer);
-document.getElementById("dlr-name-inp").addEventListener("keydown",e=>{
-  if(e.key==="Enter") saveDealer();
-  if(e.key==="Escape") document.getElementById("cancel-dlr-btn").click();
-});
-
+document.getElementById("dlr-name-inp").addEventListener("keydown",e=>{if(e.key==="Enter")saveDealer();if(e.key==="Escape")document.getElementById("cancel-dlr-btn").click();});
 function saveDealer(){
-  const inp=document.getElementById("dlr-name-inp");
-  const name=inp.value.trim();
-  if(!name) return;
-  if(!dealers.includes(name)){ dealers.push(name); }
-  curDealer=name; inp.value="";
+  const inp=document.getElementById("dlr-name-inp"),name=inp.value.trim();if(!name)return;
+  if(!dealers.includes(name))dealers.push(name);curDealer=name;inp.value="";inp.blur();
   document.getElementById("add-dlr-form").classList.remove("show");
-  save(); refreshSelect(); renderDealers();
-  document.getElementById("dealer-select").value=name;
+  save();refreshSelect();renderDealers();document.getElementById("dealer-select").value=name;
 }
-
 document.getElementById("del-dlr-btn").addEventListener("click",()=>{
-  if(!curDealer) return;
-  if(!confirm(`حذف الديلر "${curDealer}"؟`)) return;
-  dealers=dealers.filter(d=>d!==curDealer);
-  curDealer=""; save(); refreshSelect(); renderDealers();
+  if(!curDealer)return;if(!confirm(`حذف الديلر "${curDealer}"؟`))return;
+  dealers=dealers.filter(d=>d!==curDealer);curDealer="";save();refreshSelect();renderDealers();
 });
-
-document.getElementById("clear-btn").addEventListener("click",()=>{
-  if(!confirm("مسح جميع الأرقام المسجلة؟")) return;
-  nums=[]; save(); render();
-});
-
-// ── Service Worker — registered after page load so it doesn't compete with first paint ──
-window.addEventListener("load", () => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
-  }
-});
-
-// ── Init ──
-load();
-buildPad();
-render();
+document.getElementById("clear-btn").addEventListener("click",()=>{if(!confirm("مسح جميع الأرقام المسجلة؟"))return;nums=[];save();render();});
+if(window.visualViewport){window.visualViewport.addEventListener("resize",()=>{document.getElementById("app").style.height=window.visualViewport.height+"px";});}
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+load();buildPad();render();
 </script>
 </body>
 </html>
